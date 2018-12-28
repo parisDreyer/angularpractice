@@ -1,0 +1,5 @@
+## Dependencies
+- MongoDB
+- Express
+- AngularJS
+
