@@ -57,9 +57,13 @@ businessCardsApp
     $scope.message = 'Here is some info about your associates';
     $scope.editing = [];
     $scope.contacts = [];
+    // get the data in the database
     businessCards.then(the_cards => {
-        console.log(the_cards.data);
-        $scope.contacts = the_cards.data;
+        let contacts = the_cards.data;
+        $scope.contacts = contacts.map(bc => {
+            bc.phone = formatPhoneNumber(bc.phone ? bc.phone.toString() : '');
+            return bc;
+        });
     });
 
     $scope.save = function () {
@@ -96,4 +100,16 @@ businessCardsApp
                 $location.url('/');
             });
         }
-    }])
+    }]);
+
+
+// for setting the number string into a visually appealing format
+function formatPhoneNumber(phoneNumberString) {
+  var cleaned = ("" + phoneNumberString).replace(/\D/g, "");
+  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+  if (match) {
+    var intlCode = match[1] ? "+1 " : "";
+    return [intlCode, "(", match[2], ") ", match[3], "-", match[4]].join("");
+  }
+  return phoneNumberString;
+}

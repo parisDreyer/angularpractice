@@ -1,21 +1,44 @@
+<div class="content text-center">
 <div class="jumbotron text-center">
     <h1>Contacts</h1>
-    <p></p>
+    <p>{{message}}</p>
 
     Search: <input type="text" ng-model="search.name">
-    <ul>
-        <li ng-repeat="contact in contacts | filter: search">
-            <a ng-show="!editing[$index]" href="#/{{contact._id}}">{{contact.name}}</a>
-            <span ng-show="!editing[$index]">{{contact.phone}}</span>
-            <span ng-show="!editing[$index]">{{contact.email}}</span>
-            
-            <button ng-show="!editing[$index]" ng-click="edit($index)">edit</button>
-    
-            <input ng-show="editing[$index]" type="text" ng-model="contact.name">
-            <button ng-show="editing[$index]" ng-click="update($index)">Update</button>
-            <button ng-show="editing[$index]" ng-click="cancel($index)">Cancel</button>
-            <button ng-show="!editing[$index]" ng-click="remove($index)">remove</button>
+
+    New task <input type="text" ng-model="newcontact"><button ng-click="save()">Create</button>
+</div>
+    <ul class="d-flex flex-wrap">
+        <li 
+            ng-repeat="contact in contacts | filter: search"  
+            class="list-group-item biz-index-item"
+            >
+            <div class="card contact-index-card">
+                <img class="card-img-top photo-thumb"
+                    src="https://source.unsplash.com/daily" 
+                    alt="Card image top">
+                
+                <div class="card-body">
+                    <ul class="list-group contact-blandify">
+                        <li class="list-group-item contact-blandify">
+                            <a ng-show="!editing[$index]" href="#/{{contact._id}}">{{contact.name}}</a>
+                        </li>
+                        <li class="list-group-item contact-blandify" ng-show="!editing[$index]">
+                            {{contact.phone}}
+                        </li>
+                        <li class="list-group-item contact-blandify" ng-show="!editing[$index]">
+                            {{contact.email}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- the below is for crud features not implemented yet -->
+            <!-- <div class="contact-index-li-footer">
+                <button ng-show="!editing[$index]" ng-click="edit($index)">edit</button>
+                <input ng-show="editing[$index]" type="text" ng-model="contact.name">
+                <button ng-show="editing[$index]" ng-click="update($index)">Update</button>
+                <button ng-show="editing[$index]" ng-click="cancel($index)">Cancel</button>
+                <button ng-show="!editing[$index]" ng-click="remove($index)">remove</button>
+            </div> -->
         </li>
     </ul>
-    New task <input type="text" ng-model="newcontact"><button ng-click="save()">Create</button>
 </div>

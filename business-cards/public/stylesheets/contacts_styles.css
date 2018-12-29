@@ -1,0 +1,25 @@
+.contact-blandify{
+    border:none;margin:0;padding:0;
+}
+
+.biz-index-item{
+    margin:16px;
+    border:none;
+    max-width:512px;
+    display: flex;
+    align-content: space-between; 
+}
+
+.contact-index-card{
+    min-width: 256px;
+    height: 156px;
+}
+
+.photo-thumb{
+    max-height: 32px;max-width:32px;
+}
+
+.contact-index-li-footer{
+    margin-left: 10px;
+    margin-top: 16%;
+}
