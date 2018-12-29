@@ -1,0 +1,21 @@
+<div class="jumbotron text-center">
+    <h1>Contacts</h1>
+    <p></p>
+
+    Search: <input type="text" ng-model="search.name">
+    <ul>
+        <li ng-repeat="contact in contacts | filter: search">
+            <a ng-show="!editing[$index]" href="#/{{contact._id}}">{{contact.name}}</a>
+            <span ng-show="!editing[$index]">{{contact.phone}}</span>
+            <span ng-show="!editing[$index]">{{contact.email}}</span>
+            
+            <button ng-show="!editing[$index]" ng-click="edit($index)">edit</button>
+    
+            <input ng-show="editing[$index]" type="text" ng-model="contact.name">
+            <button ng-show="editing[$index]" ng-click="update($index)">Update</button>
+            <button ng-show="editing[$index]" ng-click="cancel($index)">Cancel</button>
+            <button ng-show="!editing[$index]" ng-click="remove($index)">remove</button>
+        </li>
+    </ul>
+    New task <input type="text" ng-model="newcontact"><button ng-click="save()">Create</button>
+</div>
