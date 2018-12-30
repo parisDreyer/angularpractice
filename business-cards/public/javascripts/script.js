@@ -8,12 +8,12 @@ businessCardsApp.config(function($routeProvider){
         // route for the home page
         .when('/', {
             templateUrl : 'pages/home.html',
-            controller : 'mainController'
+            controller: 'mainController'
         })
         // route for the about page
         .when('/about',{
             templateUrl : 'pages/about.html',
-            controller : 'aboutController'
+            controller: 'aboutController'
         })
         // route for the contact page
         .when('/contacts', {
@@ -32,11 +32,11 @@ businessCardsApp.config(function($routeProvider){
 businessCardsApp.controller('mainController', function ($scope) {
 
     // create a message to display in our view
-    $scope.message = 'Here are my cool friends!';
+    $scope.message = 'Go to the contacts page to use the business cards.';
 });
 
 businessCardsApp.controller('aboutController', function($scope){
-    $scope.message = 'Welcome to the about page for the Business Cards App.'
+    $scope.message = 'Welcome to the about page for the Business Cards App. Go to the contacts page to use the business cards.'
 });
 
 
@@ -55,25 +55,74 @@ businessCardsApp
         }])
 .controller('contactsController', ['$scope', 'businessCards', function ($scope, businessCards) {
     $scope.message = 'Here is some info about your associates';
+
     $scope.triggerMClick = function(index) {
-        let c = document.getElementById(`#bizCard_${index}`);
-        c.classList.remove('hidden');
+        // un-hide the modal
+        let card = document.getElementById(`#bizCard_${index}`);
+        card.classList.remove('hidden');
 
+        // darken the rest of the page
+        let bkgrnd = document.getElementById('page-mask');
+        bkgrnd.classList.remove('hidden');
 
+        // // set a listener to close the modal
+        // card.onclick = function(){
+        //     // hide the modal
+        //     card.classList.add('hidden');
 
-        c.onclick = (function(){
-            this.classList.add('hidden');
-            this.onclick = undefined;
-        }).bind(c);
+        //     // un-darken the rest of the page
+        //     bkgrnd.classList.add('hidden');
+
+        // };
+        // set a listener on the background
+        bkgrnd.onclick = function () {
+            // hide the modal
+            card.classList.add('hidden');
+
+            // un-darken the rest of the page
+            bkgrnd.classList.add('hidden');
+
+        };
     };
+    $scope.setModal = function(index, contact){
+
+        let modal = document.createElement('div');
+        modal.innerHTML = `<div class="modal-business-card hidden" id="#bizCard_${index}">
+            <div class="card contact-index-card">
+                <img class="card-img-top photo-big" src="${contact.photo_src}" alt="photo of the person on the business card">
+
+                    <div class="card-body">
+                        <ul class="list-group contact-blandify cstm-mdl-list">
+                            <li class="list-group-item contact-blandify cstm-mdl-list-i">
+                                ${contact.name}
+                            </li>
+                            <li class="list-group-item contact-blandify cstm-mdl-list-i">
+                                ${contact.phone}
+                            </li>
+                            <li class="list-group-item contact-blandify cstm-mdl-list-i">
+                                ${contact.email}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>`;
+
+        document.body
+          .insertAdjacentElement("afterbegin", modal);
+    }
+
+
+
     $scope.editing = [];
     $scope.contacts = [];
     // get the data in the database
     businessCards.then(the_cards => {
         let contacts = the_cards.data;
-        $scope.contacts = contacts.map(bc => {
+        $scope.contacts = contacts.map((bc, idx) => {
             bc.phone = formatPhoneNumber(bc.phone ? bc.phone.toString() : '');
             bc.photo_src = bc.photo_src ? bc.photo_src : './profiles/default_profile.jpg'
+
+            $scope.setModal(idx, bc); // set a modal to show the card
             return bc;
         });
     });

@@ -16,7 +16,8 @@
 }
 
 .photo-thumb{
-    max-height: 32px;max-width:32px;
+    max-height: 32px;
+    max-width:32px;
 }
 
 
@@ -28,4 +29,27 @@
 .contact-index-li-footer{
     margin-left: 10px;
     margin-top: 16%;
+}
+
+
+.modal-business-card{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 512px;
+    min-width: 256px;
+    z-index: 4000;
+    background-color: aliceblue;
+    justify-content: center;
+} 
+
+.cstm-mdl-list{
+    align-items: center;
+    min-width: 256px;
+    width: 100%;
+}
+.cstm-mdl-list-i{
+    width: 100%;
+    text-align: center;
 }
