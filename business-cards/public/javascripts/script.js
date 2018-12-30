@@ -55,6 +55,17 @@ businessCardsApp
         }])
 .controller('contactsController', ['$scope', 'businessCards', function ($scope, businessCards) {
     $scope.message = 'Here is some info about your associates';
+    $scope.triggerMClick = function(index) {
+        let c = document.getElementById(`#bizCard_${index}`);
+        c.classList.remove('hidden');
+
+
+
+        c.onclick = (function(){
+            this.classList.add('hidden');
+            this.onclick = undefined;
+        }).bind(c);
+    };
     $scope.editing = [];
     $scope.contacts = [];
     // get the data in the database
@@ -62,6 +73,7 @@ businessCardsApp
         let contacts = the_cards.data;
         $scope.contacts = contacts.map(bc => {
             bc.phone = formatPhoneNumber(bc.phone ? bc.phone.toString() : '');
+            bc.photo_src = bc.photo_src ? bc.photo_src : './profiles/default_profile.jpg'
             return bc;
         });
     });

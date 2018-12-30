@@ -19,6 +19,12 @@
     max-height: 32px;max-width:32px;
 }
 
+
+.photo-big{
+    align-self: center;
+    max-height: 512px;
+    max-width: 512px;
+}
 .contact-index-li-footer{
     margin-left: 10px;
     margin-top: 16%;

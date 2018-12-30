@@ -1,26 +1,27 @@
 <div class="content text-center">
-<div class="jumbotron text-center">
-    <h1>Contacts</h1>
-    <p>{{message}}</p>
+    <div class="jumbotron text-center">
+        <h1>Contacts</h1>
+        <p>{{message}}</p>
 
-    Search: <input type="text" ng-model="search.name">
-
-    New task <input type="text" ng-model="newcontact"><button ng-click="save()">Create</button>
-</div>
-    <ul class="d-flex flex-wrap">
+        Search: <input type="text" ng-model="search.name">
+    </div>
+    <!-- New task <input type="text" ng-model="newcontact"><button ng-click="save()">Create</button> -->
+    <ul class="d-flex flex-wrap" id="contacts-list">
         <li 
             ng-repeat="contact in contacts | filter: search"  
             class="list-group-item biz-index-item"
             >
-            <div class="card contact-index-card">
+            <div ng-click="triggerMClick($index)" class="card contact-index-card">
                 <img class="card-img-top photo-thumb"
-                    src="https://source.unsplash.com/daily" 
-                    alt="Card image top">
+                    src="{{contact.photo_src}}" 
+                    alt="photo of the person on the business card"
+                >
                 
                 <div class="card-body">
                     <ul class="list-group contact-blandify">
                         <li class="list-group-item contact-blandify">
-                            <a ng-show="!editing[$index]" href="#/{{contact._id}}">{{contact.name}}</a>
+                            {{contact.name}}
+                            <!-- <a ng-show="!editing[$index]" href="#/{{contact._id}}">{{contact.name}}</a> -->
                         </li>
                         <li class="list-group-item contact-blandify" ng-show="!editing[$index]">
                             {{contact.phone}}
@@ -31,14 +32,35 @@
                     </ul>
                 </div>
             </div>
-            <!-- the below is for crud features not implemented yet -->
-            <!-- <div class="contact-index-li-footer">
-                <button ng-show="!editing[$index]" ng-click="edit($index)">edit</button>
-                <input ng-show="editing[$index]" type="text" ng-model="contact.name">
-                <button ng-show="editing[$index]" ng-click="update($index)">Update</button>
-                <button ng-show="editing[$index]" ng-click="cancel($index)">Cancel</button>
-                <button ng-show="!editing[$index]" ng-click="remove($index)">remove</button>
-            </div> -->
+            <!-- here is a modal of the same card to show if the card is clicked-->
+            <div class="modal-business-card hidden" id="#bizCard_{{$index}}">
+                <div class="card contact-index-card">
+                    <img class="card-img-top photo-big" src="{{contact.photo_src}}" alt="photo of the person on the business card">
+                
+                    <div class="card-body">
+                        <ul class="list-group contact-blandify">
+                            <li class="list-group-item contact-blandify">
+                                <a ng-show="!editing[$index]" href="#/{{contact._id}}">{{contact.name}}</a>
+                            </li>
+                            <li class="list-group-item contact-blandify" ng-show="!editing[$index]">
+                                {{contact.phone}}
+                            </li>
+                            <li class="list-group-item contact-blandify" ng-show="!editing[$index]">
+                                {{contact.email}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- end modal section -->
+                <!-- the below is for crud features not implemented yet -->
+                <!-- <div class="contact-index-li-footer">
+                    <button ng-show="!editing[$index]" ng-click="edit($index)">edit</button>
+                    <input ng-show="editing[$index]" type="text" ng-model="contact.name">
+                    <button ng-show="editing[$index]" ng-click="update($index)">Update</button>
+                    <button ng-show="editing[$index]" ng-click="cancel($index)">Cancel</button>
+                    <button ng-show="!editing[$index]" ng-click="remove($index)">remove</button>
+                </div> -->
         </li>
     </ul>
 </div>
