@@ -14,6 +14,8 @@ var businessCardSchema = new mongoose.Schema({
 var BusinessCard = mongoose.model('businessCard', businessCardSchema);
 
 
+BusinessCard.remove({}, e => console.log('collection removed'));
+
 // Create a businessCard in memory
 var businessCard = new BusinessCard({ 
     name: 'sample user', 
@@ -24,10 +26,7 @@ var businessCard = new BusinessCard({
 
 // Save it to database
 businessCard.save(function (err) {
-    if (err)
-        console.log(err);
-    else
-        console.log(businessCard);
+    if (err) console.log(err);
 });
 
 // https://github.com/dominictarr/random-name/blob/master/first-names.txt
@@ -644,8 +643,7 @@ for(let i = 1; i <= 371; ++i){
     businessCard.save(function (err) {
         if (err)
             console.log(err);
-        else
-            console.log(businessCard);
+        if(i === 371) console.log('mongodb setup')
     });
 
 }
