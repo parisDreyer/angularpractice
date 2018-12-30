@@ -32,7 +32,7 @@ businessCardsApp.config(function($routeProvider){
 businessCardsApp.controller('mainController', function ($scope) {
 
     // create a message to display in our view
-    $scope.message = 'Go to the contacts page to use the business cards.';
+    $scope.message = 'Welcome to the home page for the Business Cards App. Please Go to the contacts page to use the business cards.';
 });
 
 businessCardsApp.controller('aboutController', function($scope){
